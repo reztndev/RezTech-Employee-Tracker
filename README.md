@@ -97,13 +97,6 @@ Once the database is created and tables are seeded, the application may be start
 
 Invoking the index.js brings up the Inquirer prompt system.  You may now use the various menu options that have been presented.  For a review of the menu options refer to the implementation section above.
 
-A schema.sql is provided for facilitating this task.
-
-Once the database is created, the corresponding and aforementioned models need to be seeded by running the following in the command shell:
-* npm run seed
-
-You'll notice that the seeding scripts are included in the corresponding seed definition files for each model in the database. Also notice that the database relationships between the models, such belongsTo, hasMany & belongsToMany, are defined in the index.js under the project's models folder
-
 ## Future Enhancements
 The following additional menu options and queries are currently planned for the next version of this program:
 
