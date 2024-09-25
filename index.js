@@ -1,13 +1,13 @@
 const inquirer = require('inquirer');
 const { Pool } = require('pg');
-const consoleTable = require('console.table');
 
+require('console.table');
 require('dotenv').config();
 
 // Connect to database
 const pool = new Pool({
-  user: process.env.DB_USER || 'postgres', // Add your PostgreSQL username
-  password: process.env.DB_PASSWORD || '', // Add your PostgreSQL password
+  user: process.env.DB_USER || 'postgres', 
+  password: process.env.DB_PASSWORD || '', 
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME,
   port: process.env.DB_PORT
@@ -73,13 +73,16 @@ function start() {
 
 // View all departments
 const viewAllDepartments = async () => {
+  console.clear();
   try {
     const result = await pool.query('SELECT * FROM department');
+    console.clear(); // Clear the console before showing the table
+    console.log();  // Insert an empty line to avoid Inquierer boilerplate
     console.table(result.rows);
-    start();
+    start();  // Return to the main menu
   } catch (err) {
     console.error(err.message);
-    start();
+    start();  // Return to the main menu
   }
 };
 
@@ -91,6 +94,7 @@ const viewAllRoles = async () => {
       FROM role
       INNER JOIN department ON role.department_id = department.id
     `);
+    console.clear();
     console.table(result.rows);
     start();
   } catch (err) {
@@ -110,6 +114,7 @@ const viewAllEmployees = async () => {
       LEFT JOIN department ON role.department_id = department.id
       LEFT JOIN employee manager ON employee.manager_id = manager.id
     `);
+    console.clear();
     console.table(result.rows);
     start();
   } catch (err) {
@@ -120,6 +125,7 @@ const viewAllEmployees = async () => {
 
 // Add a department
 const addDepartment = async () => {
+  console.clear(); // Clear the console before displaying the prompt
   inquirer
     .prompt({
       name: 'name',
@@ -140,12 +146,12 @@ const addDepartment = async () => {
 
 // Add a role
 const addRole = async () => {
+  console.clear(); // Clear the console before displaying the prompt
   const departments = await pool.query('SELECT * FROM department');
   const departmentChoices = departments.rows.map(({ id, name }) => ({
     name: name,
     value: id
   }));
-
   inquirer
     .prompt([
       {
@@ -182,6 +188,7 @@ const addRole = async () => {
 
 // Add an employee
 const addEmployee = async () => {
+  console.clear(); // Clear the console before displaying the prompt
   const roles = await pool.query('SELECT * FROM role');
   const roleChoices = roles.rows.map(({ id, title }) => ({
     name: title,
@@ -237,6 +244,7 @@ const addEmployee = async () => {
 
 // Update an employee's role
 const updateEmployeeRole = async () => {
+  console.clear(); // Clear the console before displaying the prompt
   const employees = await pool.query('SELECT * FROM employee');
   const employeeChoices = employees.rows.map(({ id, first_name, last_name }) => ({
     name: `${first_name} ${last_name}`,

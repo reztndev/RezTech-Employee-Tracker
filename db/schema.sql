@@ -8,13 +8,13 @@ CREATE DATABASE rez_technologies;
 -- Departments Table
 CREATE TABLE department (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(30) UNIQUE NOT NULL
+    name VARCHAR(30) NOT NULL
 );
 
 -- Roles Table
 CREATE TABLE role (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(30) UNIQUE NOT NULL,
+    title VARCHAR(30) NOT NULL,
     salary DECIMAL NOT NULL,
     department_id INTEGER NOT NULL,
     FOREIGN KEY (department_id) REFERENCES department(id)
